@@ -1,9 +1,10 @@
 <?php
 
+//★例外処理(try/catch)…データベースを無事に取得できたらtryを実行、できなかったらcatchを実行
 try {
 
   $pdo = new PDO(
-    'mysql:dbname=YOUR_DB_NAME;host=localhost;charset=utf8mb4',
+    'mysql:dbname=php-kakeibo;host=localhost;charset=utf8mb4',
     'root',
     '',
     [

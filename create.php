@@ -1,4 +1,10 @@
 <?php 
+
+//2.db.connect.phpを読み込む→DBに接続
+include_once("./dbconnect.php");   //dbconnectがcreateでも使えるようになる
+
+
+
 /*処理の流れ
   1.画面で入力された値を取得する
   2.PHPからMySQLへ接続
