@@ -1,3 +1,18 @@
+<?php 
+//DB接続
+include_once("./dbconnect.php");
+
+//選択されたidの取得
+$id = $_GET["id"];
+var_dump($_GET);
+
+//編集するデータを取得
+//1. SQL作成(id取得) AUTO-INCREMENTが設定されているのでidを取得することによって編集が可能になる
+$sql = "SELECT * FROM records WHERE id = :id";
+//
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
