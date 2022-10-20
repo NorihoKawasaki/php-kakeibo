@@ -1,3 +1,27 @@
+<?php 
+//< DB接続 >
+include_once("./dbconnect.php");
+
+//< function.phpの内容を使えるように読み込む >
+include_once("./functions.php");
+
+//< recordsテーブルのデータを全件取得 >
+//1．SQL文作成
+$sql = "SELECT * FROM records";
+//2. SQLの実行の準備
+$stmt = $pdo -> prepare($sql);
+//3. SQLの実行
+$stmt -> execute();
+//4. 全データを変数に格納：fetchAll()でDBからすべてのデータを取得できる
+$records = $stmt -> fetchAll();
+
+// var_dump($records);
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -41,51 +65,20 @@
                 <th scope="col" class="col-3">操作</th>
               </tr>
             </thead>
-
             <tbody>
-              <tr>
-                <td class="col-2">2020/1/1</td>
-                <td class="col-3">昼ごはん</td>
-                <td class="col-2"></td>
-                <td class="col-2">800</td>
-                <td class="col-3">
-                  <a href="./editForm.php" class="btn btn-success text-light">編集</a>
-                  <a href="./delete.php" class="btn btn-danger text-light">削除</a>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="col-2">2020/1/1</td>
-                <td class="col-3">お年玉</td>
-                <td class="col-2">20000</td>
-                <td class="col-2"></td>
-                <td class="col-3">
-                  <a href="./editForm.php" class="btn btn-success text-light">編集</a>
-                  <a href="./delete.php" class="btn btn-danger text-light">削除</a>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="col-2">2020/1/2</td>
-                <td class="col-3">昼ごはん</td>
-                <td class="col-2"></td>
-                <td class="col-2">1000</td>
-                <td class="col-3">
-                  <a href="./editForm.php" class="btn btn-success text-light">編集</a>
-                  <a href="./delete.php" class="btn btn-danger text-light">削除</a>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="col-2">2020/1/3</td>
-                <td class="col-3">昼ごはん</td>
-                <td class="col-2"></td>
-                <td class="col-2">1200</td>
-                <td class="col-3">
-                  <a href="./editForm.php" class="btn btn-success text-light">編集</a>
-                  <a href="./delete.php" class="btn btn-danger text-light">削除</a>
-                </td>
-              </tr>
+              <?php foreach($records as $record): ?>
+                <tr>
+                  <td class="col-2"><?php echo h($record["date"]); ?></td>
+                  <td class="col-3"><?php echo h($record["title"]); ?></td>
+                  <!-- if文(0の場合収入、1の場合は支出という条件式) -->
+                  <td class="col-2"><?php echo h($record["type"]) == 0 ? h($record["amount"]): ""; ?></td>  
+                  <td class="col-2"><?php echo h($record["type"]) == 1 ? h($record["amount"]): ""; ?></td>
+                  <td class="col-3">
+                    <a href="./editForm.php" class="btn btn-success text-light">編集</a>
+                    <a href="./delete.php" class="btn btn-danger text-light">削除</a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
             </tbody>
           </table>
         </div>
