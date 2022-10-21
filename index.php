@@ -12,7 +12,7 @@ $sql = "SELECT * FROM records";
 $stmt = $pdo -> prepare($sql);
 //3. SQLの実行
 $stmt -> execute();
-//4. 全データを変数に格納：fetchAll()でDBからすべてのデータを取得できる
+//4. 全データ(records)を変数に格納：fetchAll()でDBからすべてのデータを取得できる
 $records = $stmt -> fetchAll();
 
 // var_dump($records);
@@ -70,12 +70,14 @@ $records = $stmt -> fetchAll();
                 <tr>
                   <td class="col-2"><?php echo h($record["date"]); ?></td>
                   <td class="col-3"><?php echo h($record["title"]); ?></td>
-                  <!-- if文(0の場合収入、1の場合は支出という条件式) -->
+                  <!-- ★if文(0の場合収入、1の場合は支出という条件式) -->
                   <td class="col-2"><?php echo h($record["type"]) == 0 ? h($record["amount"]): ""; ?></td>  
                   <td class="col-2"><?php echo h($record["type"]) == 1 ? h($record["amount"]): ""; ?></td>
                   <td class="col-3">
-                    <a href="./editForm.php" class="btn btn-success text-light">編集</a>
-                    <a href="./delete.php" class="btn btn-danger text-light">削除</a>
+                    <!-- ★グローバル変数の投げる側の設定(id) --> 
+                    <!-- ★POST:個人情報、GET:プライベート以外→aタグを使用 -->
+                    <a href="./editForm.php?id=<?php echo h($record["id"]); ?>" class="btn btn-success text-light">編集</a>
+                    <a href="./delete.php?id=<?php echo h($record["id"]); ?>" class="btn btn-danger text-light">削除</a>
                   </td>
                 </tr>
               <?php endforeach; ?>
