@@ -14,11 +14,9 @@ $stmt = $pdo -> prepare($sql);
 $stmt -> bindParam(":id", $id, PDO::PARAM_INT); //★値の設定、idは数字だからINT！
 //3. SQLの実行
 $stmt -> execute();
-//4．実行結果の取得、★一つのデータだからrecord変数
-$record = $stmt -> fetch();
 
-// var_dump($record);
-
-
+//< index.phpに画面せん移する(headerのLocation) >
+header("Location: ./index.php");
+exit;
 
 ?>
